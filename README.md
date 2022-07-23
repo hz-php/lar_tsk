@@ -1,13 +1,22 @@
-16 Задание 
-1. Обернуть запросы в базу данных в кэш, используя обычный и тегированный кэши.
-2. Написать Artisan-команду, которая периодически очищает кэш.
+17 Задание 
+1. Скорректируйте реализованную фильтрацию и поиск данных в своем проекте на ElasticSearch.
+2. Занесите в ElasticSearch минимум одну сущность проекта.
 
-Установил редис подключил к своему приложению через composer
-У становил клиент для доступа к БД Redis
-![Image alt](Screenshot_4.png)
-Создал контроллер вывода работников на странице
+Установил elasticssearch подключил к своему приложению через composer командой
+composer require elasticsearch/elasticsearch
+
 ![Image alt](Screenshot_1.png)
-В методе index сохраняю в кэш Redis поля и добавил сохранение тегированого кеша
-Создал консольную команду очистки кеша 
-![Image alt](Screenshot_2.png)
+Создал вид для выода поля поиска и всех работников
+![Image alt](Screenshot.png)
+Сделал директрию repositories в ней создал интерфейс WorkersRepository с методом search
+![Image alt](Screenshot_3.png)
+Создал репозиторий поиска средствами Eloquent с названием EloquentRepository
+который имплементирует интерфейс WorkersRepository
+![Image alt](Screenshot_5.png)
+Зарегистрировал EloquentRepository в AppServiceProvider
+По такому же приципу сделал ElasticSearchRepository
+Создал консольную команду индексации бд
+search:reindex
+
+
 
