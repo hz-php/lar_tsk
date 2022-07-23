@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <div style="margin: 20px;">
+                <a href="{{ route('worker_create') }}" class="btn btn-primary">Создать работника</a>
+                </div>
                 <div class="card">
                     @foreach($workers as $worker)
                         @if(empty($worker['first_name']))

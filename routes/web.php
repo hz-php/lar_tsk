@@ -21,3 +21,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/workers', ['App\Http\Controllers\Workers\WorkerController', 'index'])->name('worker_index');
+Route::get('/workers-create', ['App\Http\Controllers\Workers\WorkerController', 'create'])->name('worker_create');
+Route::post('/workers-store', ['App\Http\Controllers\Workers\WorkerController', 'store'])->name('worker_store');
