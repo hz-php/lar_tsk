@@ -15,12 +15,11 @@ class WorkerEmailListener
     /**
      * Handle the event.
      *
-     * @param  \App\Events\WorkerCreate  $event
+     * @param \App\Events\WorkerCreate $event
      * @return void
      */
     public function handle(WorkerCreate $worker)
     {
-
         \Mail::to('sia041081@gmail.com')->send(new WorkerCreated($worker));
     }
 }

@@ -65,6 +65,7 @@ class WorkerController extends Controller
         $worker->number = $request->input('number');
         $worker->series = $request->input('series');
         $worker->birthday = $request->input('birthday');
+
         if ($worker->save()) {
             event(new WorkerCreate($worker));
             return redirect(route('worker_index'));

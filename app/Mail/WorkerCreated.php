@@ -3,8 +3,7 @@
 namespace App\Mail;
 
 
-use App\Listeners\WorkerEmailListener;
-use App\Models\User;
+use App\Events\WorkerCreate;
 use App\Models\Workers;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,23 +15,32 @@ class WorkerCreated extends Mailable
     use Queueable, SerializesModels;
 
     public $worker;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-//    public function __construct(Workers $workers)
-//    {
-//       $this->worker = $workers;
-//    }
+    public function __construct($worker)
+    {
+
+        $this->worker = $worker;
+
+    }
 
     /**
      * Build the message.
      *
      * @return $this
      */
+
     public function build()
     {
-        return $this->view('mail.worker_created');
+        try {
+            $worker = $this->worker;
+            return $this->view('mail.worker_created', compact('worker'));
+        } catch (\Throwable $e) {
+            \Log::error("Сообщение не было отправлено - {$e->getMessage()}", [$e]);
+        }
     }
 }
