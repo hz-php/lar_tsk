@@ -7,6 +7,7 @@ use App\Models\Files;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic;
 use Intervention\Image\ImageManagerStatic as Image;
 
 
@@ -35,11 +36,11 @@ class FileController extends Controller
         $file = new Files();
         $img = $request->file('file');
 //        $img = Image::make($request->file('file')->store('uploads', 'files'));
+        $path = $img->hashName();
+        $image = Image::make($img)->resize(100, 100);
+        $image = Storage::disk('files')->put($path, $image->stream());
 
-        $imgage = Image::make($img)->resize(100, 100);
-        echo $imgage;
-       dd($imgage);
-        $file->file = $imgage->store('uploads', 'files');
+        $file->file = $path;
         $file->save();
         return redirect(route('index-file'));
     }
@@ -61,5 +62,29 @@ class FileController extends Controller
             app(Filesystem::class)->delete($file_path);
             return redirect(route('index-file'));
         }
+    }
+
+    public function draw_img()
+    {
+        $img = ImageManagerStatic::make('files/task_image.jpg')->resize(300, 300);
+        $img->line(10, 100, 10, 195, function ($draw) {
+            $draw->color('#f00');
+        });
+        $img->line(250, 100, 10, 100, function ($draw) {
+            $draw->color('#f00');
+        });
+        $img->line(250, 195, 10, 195, function ($draw) {
+            $draw->color('#f00');
+        });
+        $img->line(250, 100, 250, 195, function ($draw) {
+            $draw->color('#f00');
+        });
+        $img->line(10, 100, 130, 30, function ($draw) {
+            $draw->color('#f00');
+        });
+        $img->line(250, 100, 130, 30, function ($draw) {
+            $draw->color('#f00');
+        });
+        return $img->response('jpg');
     }
 }

@@ -18,7 +18,7 @@ class WorkerController extends Controller
                 $pipe->set("last_name:$worker->id", $worker->last_name);
                 $pipe->set("role:$worker->id", $worker->role);
 
-                Cache::tags('first_name', 'last_name', 'role')->put('Worker', $worker->first_name.$worker->last_name.$worker->role, 10000);
+//                Cache::tags('first_name', 'last_name', 'role')->put('Worker', $worker->first_name.$worker->last_name.$worker->role, 10000);
             }
         });
         /*

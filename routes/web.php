@@ -27,3 +27,4 @@ Route::get('/download-file/{id}', ['App\Http\Controllers\Files\FileController', 
 Route::get('/store-file', ['App\Http\Controllers\Files\FileController', 'store'])->name('store-file');
 Route::get('/delete-file/{id}', ['App\Http\Controllers\Files\FileController', 'delete'])->name('delete_file');
 Route::post('/create_file', ['App\Http\Controllers\Files\FileController', 'create'])->name('create_file');
+Route::get('/draw_img', ['App\Http\Controllers\Files\FileController', 'draw_img'])->name('draw_img');
