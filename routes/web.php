@@ -21,3 +21,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/workers', ['App\Http\Controllers\Workers\WorkerController', 'index'])->name('worker_index');
+Route::get('search', function (\App\Repositories\WorkersRepository $repository) {
+    $workers = $repository->search(request('q'));
+
+    return view('worker.index', compact('workers'));
+});
